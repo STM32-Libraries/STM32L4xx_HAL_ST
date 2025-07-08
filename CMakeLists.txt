@@ -2,9 +2,6 @@ cmake_minimum_required(VERSION 3.22)
 
 project(stm32l4xx_hal_st)
 
-set(CMAKE_C_COMPILER $ENV{HOME}/Tools/gcc-arm/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc)
-
-
 set(HAL_DIR stm32l4xx_hal_driver)
 set(SRC_DIR ${HAL_DIR}/Src)
 
@@ -13,9 +10,8 @@ set(INCLUDE_DIRS
     ${HAL_DIR}/Inc
     ${HAL_DIR}/Inc/legacy
     ${CMAKE_CURRENT_SOURCE_DIR}/conf
-    ${CMAKE_CURRENT_SOURCE_DIR}/cmsis
-    ${CMAKE_CURRENT_SOURCE_DIR}/cmsis/device
-    ${CMAKE_CURRENT_SOURCE_DIR}/cmsis/core
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmsis-device-l4/Include
+    ${CMAKE_CURRENT_SOURCE_DIR}/CMSIS_6/CMSIS/Core/Include
 )
 
 set(SOURCES
@@ -142,6 +138,9 @@ target_compile_options(${PROJECT_NAME} PRIVATE
                                         -Wall
                                         -mthumb
                                         )
+
+# Define target macros
+target_compile_definitions(${PROJECT_NAME} PUBLIC STM32L432xx)
 
 # Configure linking options, if needed
 # target_link_libraries(${PROJECT_NAME} ...)
